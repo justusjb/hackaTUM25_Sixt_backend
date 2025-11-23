@@ -41,32 +41,45 @@ def generate_questions():
 Customer Data:
 {json.dumps(customer_data, indent=2)}
 
-Return ONLY a valid JSON object with this exact structure (no markdown, no explanation):
+You MUST return ONLY a valid JSON object with NO markdown formatting, NO code blocks, NO explanations.
+
+CRITICAL REQUIREMENTS:
+1. You MUST include these exact 3 questions with their exact images:
+   - "gear" with image "/ski-gear.jpg"
+   - "alpine" with image "/alpine-pass.jpg"  
+   - "snow" with image "/snow-on-the-road.jpg"
+
+2. EXTEND the tree by replacing null values with new questions to create a full decision tree
+3. For any NEW questions you add, ALWAYS use the image "/empty.jpg"
+4. Create 5-8 total questions (the 3 required + 2-5 new ones)
+5. Make sure there are NO null values - every "yes" and "no" should point to another question key
+
+Example structure (you must extend this):
 {{
-  "gear": {{
+    "snow": {{
     "id": 1,
-    "key": "gear",
-    "question": "All 3 of you bringing ski gear?",
-    "image": "/ski-gear.jpg",
+    "key": "snow",
+    "question": "Expecting snow on the roads?",
+    "image": "/snow-on-the-road.jpg",
     "yes": "alpine",
-    "no": "snow"
-  }},
+    "no": null
+  }}
   "alpine": {{
     "id": 2,
     "key": "alpine",
     "question": "Taking the high alpine passes?",
     "image": "/alpine-pass.jpg",
-    "yes": "snow",
-    "no": null
+    "yes": "gear",
+    "no": "gear",
   }},
-  "snow": {{
+  "gear": {{
     "id": 3,
-    "key": "snow",
-    "question": "Expecting snow on the roads?",
-    "image": "/snow-on-the-road.jpg",
+    "key": "gear",
+    "question": "All 3 of you bringing ski gear?",
+    "image": "/ski-gear.jpg",
     "yes": null,
-    "no": null
-  }}
+    "no": null,
+  }},
 }}
 
 Rules:
