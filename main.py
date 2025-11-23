@@ -49,10 +49,10 @@ CRITICAL REQUIREMENTS:
    - "alpine" with image "/alpine-pass.jpg"  
    - "snow" with image "/snow-on-the-road.jpg"
 
-2. EXTEND the tree by replacing null values with new questions to create a full decision tree
+2. You can EXTEND the tree by adding 2-5 additional questions
 3. For any NEW questions you add, ALWAYS use the image "/empty.jpg"
-4. Create 5-8 total questions (the 3 required + 2-5 new ones)
-5. Make sure there are NO null values - every "yes" and "no" should point to another question key
+4. null means END OF QUESTIONS - when a user reaches null, the questionnaire is complete
+5. Create multiple paths through the tree with different endpoints (null values)
 
 Example structure (you must extend this):
 {{
@@ -83,14 +83,15 @@ Example structure (you must extend this):
 }}
 
 Rules:
-- Create 2-4 relevant questions based on the customer data
-- Each question must be a YES/NO question
-- Use keys like "gear", "alpine", "snow", "luggage", "comfort", etc.
-- Set "yes" and "no" to the key of the next question, or null if it's a terminal node
-- Use placeholder images like "/ski-gear.jpg", "/alpine-pass.jpg", "/luggage.jpg", etc.
-- Make questions relevant to car rental upgrades (space, terrain, weather, comfort)
+- MUST include "gear", "alpine", and "snow" with their exact images
+- New questions must use "/empty.jpg" as image
+- Each key must match its "key" field value
+- null means "end of questionnaire" - this is a terminal node
+- Questions must be YES/NO format about car rental needs (space, terrain, weather, 4WD, comfort, passengers)
+- Create logical paths based on the customer data
+- Aim for 5-8 total questions
 
-Return ONLY the JSON object, nothing else."""
+Return ONLY valid JSON. No markdown. No explanation. Just the JSON object."""
 
     completion = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
