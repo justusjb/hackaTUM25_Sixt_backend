@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from models import TreeResponse, CustomerData
 from services.question_service import generate_decision_tree
 
-router = APIRouter(prefix="/api", tags=["questions"])
+router = APIRouter(tags=["questions"])
 
 
 @router.post("/generate-questions", response_model=TreeResponse)
